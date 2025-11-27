@@ -205,12 +205,3 @@ Only layout strategy, engineering quality, and design execution are shown for de
 
 
 ---
-
-If you want, I can now also generate:
-
-### ✔ A **GitHub Pages website** version of this portfolio  
-### ✔ A **single consolidated PDF** of all boards for job applications  
-### ✔ A **banner image** for the repo  
-### ✔ A **shorter minimal README** for recruiters  
-
-Just tell me, Smoky’s ready.
