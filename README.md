@@ -79,7 +79,7 @@ Side-by-side logic inverter circuits laid out properly vs incorrectly, demonstra
 **Folder:** [`designs/ECEN5730/board_2_switching_noise_with_good_and_bad_layout`](designs/ECEN5730/board_2_switching_noise_with_good_and_bad_layout)
 
 <p align="center">
-  <img src="designs/ECEN5730/board_2_switching_noise_with_good_and_bad_layout/images/layout_3d.png" width="500">
+  <img src="designs/ECEN5730/board_2__switching_noise_with_good_and_bad_layout/images/layout_3d.png" width="500">
 </p>
 
 ---
