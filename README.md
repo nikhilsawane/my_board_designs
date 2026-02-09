@@ -73,7 +73,7 @@ Demonstrates:
 **Folder:** [`designs/RADICALS_Carrier_Board`](designs/RADICALS_Carrier_Board)
 
 <p align="center">
-  <img src="designs/RADICALS_Carrier_Board/images/layout_3d.png" width="650">
+  <img src="designs/RADICALS_Carrier_Board/images/layout_3d_bottom.png" width="650">
 </p>
 
 ---
