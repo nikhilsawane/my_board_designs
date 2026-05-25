@@ -1,8 +1,8 @@
-# Carrier Board (10-Layer Detector Carrier)
+# IMPAX Digital Board
 
-This design is a **10-layer detector carrier board** used to interface and distribute power, clocks, configuration, and data across a tiled array of identical detector modules.
+This design is a **multi-layer digital electronics board** developed for the **IMPAX payload electronics stack**. The board supports digital signal organization, payload interconnects, and system-level communication between the IMPAX detector electronics and the rest of the spacecraft/payload architecture.
 
-The images below highlight the **10-layer stack-up**, **3D views**, **routing density**, and a representative **schematic page** illustrating the daisy-chained detector architecture.
+The images below highlight the **PCB stack-up**, **3D board views**, **top-layer layout**, and a representative **schematic page** showing the digital board architecture.
 
 All content is anonymized and intended purely as a PCB design portfolio example.
 
@@ -10,35 +10,46 @@ All content is anonymized and intended purely as a PCB design portfolio example.
 
 ## 🔧 Board Overview
 
-- **10-layer PCB stack-up** with dedicated signal, power, and ground planes  
-- Tiled array of **9 identical detector sub-circuits**  
-- Daisy-chained clock, configuration, and data buses  
-- Separate **analog and digital power domains**  
-- Heavy use of **internal-layer routing** to reduce surface congestion  
-- Via-adjacent pad fanout strategy for dense connector interfaces  
-- Designed and laid out in **Altium Designer**
+- Multi-layer PCB designed for payload digital electronics  
+- Digital signal routing between payload subsystems  
+- Board-to-board and cable connector interfaces  
+- Organized connector pinout strategy for clean system integration  
+- Local decoupling and power distribution for digital ICs  
+- Careful grounding and return-path planning for signal integrity  
+- Layout developed in **Altium Designer**  
+- Designed as part of the **IMPAX CubeSat payload electronics effort**
 
-This board functions as a **system-level carrier**, distributing regulated power, clocks, and control signals from upstream electronics to multiple detectors with tight electrical symmetry.
+This board functions as a **digital interface and routing board**, helping connect payload electronics in a structured and reviewable way while supporting clean digital communication across the system.
 
 ---
 
-## 🧱 Layer Stack Strategy (10 Layers)
+## 🛰️ Mission Context
 
-The 10-layer stack is intentionally structured to support:
+**IMPAX** stands for **Imaging Microburst Precipitation with Atmospheric X-ray emissions**.
 
-- High routing density without top-layer congestion  
-- Clean return paths using multiple solid ground planes  
-- Isolation between analog and digital power domains  
-- Predictable signal integrity across daisy-chained detectors  
+The mission is focused on studying relativistic electron microburst precipitation and associated atmospheric X-ray emissions. The payload electronics support measurement, control, and communication functions needed for the instrument system.
+
+Within that electronics stack, the Digital Board contributes to the organization and routing of digital signals between payload subsystems.
+
+---
+
+## 🧱 Layer Stack Strategy
+
+The PCB stack-up was selected to support:
+
+- Clean digital routing  
+- Low-impedance ground return paths  
+- Separation between power distribution and signal routing  
+- Improved signal integrity for board-level interfaces  
+- Manufacturable routing density for a compact payload electronics board  
 
 ### Key stack features:
 
-- Multiple dedicated **GND planes** for shielding and low-impedance return paths  
-- Separate internal **analog power plane** and **digital power plane**  
-- Multiple internal **signal layers** for clock, configuration, and data routing  
-- Surface layers primarily used for component placement and short local routes  
-
-This structure enables each detector tile to behave electrically consistent across the board.
+- Dedicated reference planes for digital signal return paths  
+- Top and bottom layers used for component placement and local routing  
+- Internal layers used for power, ground, and signal routing as needed  
+- Via stitching and ground referencing used to improve layout robustness  
+- Stack-up planning done with attention to payload electronics integration  
 
 ![Layer Stack](images/layer_stack.png)
 
@@ -49,12 +60,12 @@ This structure enables each detector tile to behave electrically consistent acro
 ### 1. 3D Views
 
 **Top-side 3D**  
-Shows tiled detector placement, connector symmetry, local decoupling, and mechanical mounting features.
+Shows the overall component placement, connector locations, and board-level mechanical organization.
 
 ![3D View – Top](images/layout_3d.png)
 
 **Bottom-side 3D**  
-Highlights via fields, internal routing transitions, and bottom-side support circuitry.
+Highlights the bottom-side component placement, routing support, and board-level layout symmetry.
 
 ![3D View – Bottom](images/layout_3d_bottom.png)
 
@@ -64,24 +75,29 @@ Highlights via fields, internal routing transitions, and bottom-side support cir
 
 Top copper view highlighting:
 
-- Repeated detector tiles with identical placement  
-- Connector fanout regions  
-- Local decoupling near each detector  
-- Minimal long surface routing (signals escape quickly to inner layers)  
+- Connector-driven layout organization  
+- Digital signal routing between functional areas  
+- Local decoupling near IC power pins  
+- Ground-referenced routing strategy  
+- Compact placement suitable for payload electronics packaging  
 
 ![Top Layer Layout](images/layout_top.png)
 
 ---
 
-### 3. Internal Routing Strategy
+### 3. Digital Interface Architecture
 
-Although routing is not shown explicitly in screenshots, the layout is dominated by **inner-layer signal routing**:
+The Digital Board supports the payload electronics system by organizing digital interfaces and interconnects between boards.
 
-- Clock and configuration buses routed symmetrically on internal signal layers  
-- Power distributed primarily through dedicated internal planes  
-- Short surface traces used mainly for pad escape and local connections  
+Key design considerations included:
 
-This approach improves signal integrity and keeps the layout scalable as detector count increases.
+- Keeping digital signal paths readable and traceable  
+- Grouping related signals by connector and function  
+- Maintaining clean reference paths for routed signals  
+- Supporting future debugging through clear schematic and layout organization  
+- Designing the board to fit within the larger IMPAX electronics stack  
+
+This approach makes the board easier to review, debug, and integrate with the rest of the payload system.
 
 ---
 
@@ -89,10 +105,11 @@ This approach improves signal integrity and keeps the layout scalable as detecto
 
 Representative schematic page showing:
 
-- Daisy-chained detector architecture  
-- Shared clock and configuration buses  
-- Separate analog and digital power rails  
-- Modular detector block reuse  
+- Digital interface organization  
+- Connector pin assignments  
+- Power and ground connections  
+- Signal grouping and naming strategy  
+- Board-level electrical structure  
 
 ![Schematic Snapshot](images/schematic.png)
 
@@ -101,7 +118,7 @@ Representative schematic page showing:
 ## 📁 Folder Contents
 
 ```text
-RADICALS_Carrier_Board/
+IMPAX_Digital_Board/
 ├─ README.md
 └─ images/
    ├─ layer_stack.png
@@ -116,12 +133,18 @@ RADICALS_Carrier_Board/
 ## 🧠 Design Focus & Takeaways
 
 This board demonstrates:
-- 10-layer stack-up planning for mixed-signal systems
-- Scalable tiled layout design using repeated detector sub-cystems
-- Clear analog vs digital power separation
-- Inner-layer routing discipline for dense, connector-heavy designs
-- System-level carrier board design, not just isolated circuits
 
-This project reflects my approach to complex instrumentation carrier boards where signal integrity, symmetry, and manufacturability are treated as first-order design constraints.
+Multi-layer PCB planning for payload digital electronics
+Connector-focused digital interface design
+Clean schematic organization for collaborative review
+Ground-referenced routing for digital signal integrity
+Layout planning for compact CubeSat payload electronics
+Altium-based documentation and portfolio presentation
+
+This project reflects my approach to digital PCB design, where schematic clarity, connector organization, grounding strategy, and layout discipline are treated as important parts of the overall electronics architecture.
 
 ---
+
+## ⚠️ Disclaimer
+
+This repository contains a sanitized portfolio version of the IMPAX Digital Board documentation. Sensitive mission details, complete manufacturing files, full schematics, BOM data, and restricted design information are intentionally omitted.
