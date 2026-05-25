@@ -1,8 +1,8 @@
-# IMPAX Digital Board
+# IMPAX Digital Board (10-Layer Payload Digital Interface Board)
 
-This design is a **multi-layer digital electronics board** developed for the **IMPAX payload electronics stack**. The board supports digital signal organization, payload interconnects, and system-level communication between the IMPAX detector electronics and the rest of the spacecraft/payload architecture.
+This design is a **10-layer digital electronics board** developed for the **IMPAX payload electronics stack**. The board supports digital communication, signal conversion, housekeeping interfaces, calibration routing, and carrier-board connectivity for the IMPAX instrument system.
 
-The images below highlight the **PCB stack-up**, **3D board views**, **top-layer layout**, and a representative **schematic page** showing the digital board architecture.
+The images below highlight the **10-layer stack-up**, **top and bottom 3D board views**, **top-layer layout**, and a representative **schematic top page** showing the overall digital board architecture.
 
 All content is anonymized and intended purely as a PCB design portfolio example.
 
@@ -10,16 +10,21 @@ All content is anonymized and intended purely as a PCB design portfolio example.
 
 ## 🔧 Board Overview
 
-- Multi-layer PCB designed for payload digital electronics  
-- Digital signal routing between payload subsystems  
-- Board-to-board and cable connector interfaces  
-- Organized connector pinout strategy for clean system integration  
-- Local decoupling and power distribution for digital ICs  
-- Careful grounding and return-path planning for signal integrity  
-- Layout developed in **Altium Designer**  
-- Designed as part of the **IMPAX CubeSat payload electronics effort**
+- **10-layer PCB stack-up** with multiple dedicated ground reference planes  
+- Central **MCU-based digital control architecture**  
+- Digital communication interfaces including:
+  - RS-422 signals  
+  - SCI signals  
+  - JTAG  
+  - MCU I/O signals  
+- Signal conversion between digital-board and carrier-board domains  
+- Carrier-board connector interface for event, I/O, register configuration, housekeeping, heater control, and calibration signals  
+- On-board housekeeping interfaces for analog monitoring, DC-DC temperature monitoring, and high-voltage monitoring  
+- Voltage conversion and enable-control circuitry  
+- Multiple board-to-board and cable connector interfaces  
+- Designed and laid out in **Altium Designer**
 
-This board functions as a **digital interface and routing board**, helping connect payload electronics in a structured and reviewable way while supporting clean digital communication across the system.
+This board functions as a **payload digital interface and control board**, organizing communication between the cable interface, MCU, signal-conversion circuitry, housekeeping blocks, voltage-conversion circuitry, and carrier-board interface.
 
 ---
 
@@ -27,29 +32,38 @@ This board functions as a **digital interface and routing board**, helping conne
 
 **IMPAX** stands for **Imaging Microburst Precipitation with Atmospheric X-ray emissions**.
 
-The mission is focused on studying relativistic electron microburst precipitation and associated atmospheric X-ray emissions. The payload electronics support measurement, control, and communication functions needed for the instrument system.
+The mission studies relativistic electron microburst precipitation and associated atmospheric X-ray emissions. Within the payload electronics stack, this Digital Board supports the organization, routing, and control of digital and mixed-interface signals required by the instrument electronics.
 
-Within that electronics stack, the Digital Board contributes to the organization and routing of digital signals between payload subsystems.
+This repository presents a sanitized version of the board for engineering portfolio documentation.
 
 ---
 
-## 🧱 Layer Stack Strategy
+## 🧱 Layer Stack Strategy (10 Layers)
 
-The PCB stack-up was selected to support:
+The board uses a **10-layer PCB stack-up** designed to support dense digital routing, controlled return paths, and clean separation between signal, ground, and power domains.
 
-- Clean digital routing  
-- Low-impedance ground return paths  
-- Separation between power distribution and signal routing  
-- Improved signal integrity for board-level interfaces  
-- Manufacturable routing density for a compact payload electronics board  
+### Stack-up shown:
+
+- **Top Layer:** Signal / component placement  
+- **Internal Layer 1:** Ground plane  
+- **Internal Layer 2:** Signal  
+- **Internal Layer 3:** Ground plane  
+- **Internal Layer 4:** Power / signal plane  
+- **Internal Layer 5:** Power / signal plane  
+- **Internal Layer 6:** Ground plane  
+- **Internal Layer 7:** Signal  
+- **Internal Layer 8:** Ground plane  
+- **Bottom Layer:** Signal / component placement  
 
 ### Key stack features:
 
-- Dedicated reference planes for digital signal return paths  
-- Top and bottom layers used for component placement and local routing  
-- Internal layers used for power, ground, and signal routing as needed  
-- Via stitching and ground referencing used to improve layout robustness  
-- Stack-up planning done with attention to payload electronics integration  
+- Multiple solid **GND planes** for low-impedance return paths  
+- Internal routing layers for dense digital and interface signals  
+- Internal power/signal layers for payload power distribution and routing flexibility  
+- Controlled-impedance routing profiles used for high-speed or differential interfaces  
+- Symmetric signal/ground structure to improve signal integrity and layout robustness  
+
+This stack-up supports the board’s role as a dense payload digital interface board while maintaining clean return paths and manageable routing density.
 
 ![Layer Stack](images/layer_stack.png)
 
@@ -60,12 +74,12 @@ The PCB stack-up was selected to support:
 ### 1. 3D Views
 
 **Top-side 3D**  
-Shows the overall component placement, connector locations, and board-level mechanical organization.
+Shows the primary component placement, MCU area, connector interfaces, voltage-conversion circuitry, and dense top-side routing organization.
 
 ![3D View – Top](images/layout_3d.png)
 
 **Bottom-side 3D**  
-Highlights the bottom-side component placement, routing support, and board-level layout symmetry.
+Highlights bottom-side component placement, secondary routing regions, connector support circuitry, and additional board-to-board interface areas.
 
 ![3D View – Bottom](images/layout_3d_bottom.png)
 
@@ -75,43 +89,86 @@ Highlights the bottom-side component placement, routing support, and board-level
 
 Top copper view highlighting:
 
-- Connector-driven layout organization  
-- Digital signal routing between functional areas  
-- Local decoupling near IC power pins  
-- Ground-referenced routing strategy  
-- Compact placement suitable for payload electronics packaging  
+- Functional placement rooms for MCU, BGA/interface regions, and channel groups  
+- Connector-driven signal routing across the board  
+- Dense routing between digital interface blocks  
+- Ground-referenced routing strategy across the full PCB  
+- Via transitions between top-layer routing and internal signal layers  
+- Localized routing around signal-conversion and housekeeping circuitry  
 
 ![Top Layer Layout](images/layout_top.png)
 
 ---
 
-### 3. Digital Interface Architecture
+## 🧩 Digital Board Architecture
 
-The Digital Board supports the payload electronics system by organizing digital interfaces and interconnects between boards.
+The schematic top page organizes the design into major functional blocks:
 
-Key design considerations included:
+- **Cable Connector**  
+  External cable interface carrying RS-422, JTAG, MCU I/O, heater control, and power-enable signals.
 
-- Keeping digital signal paths readable and traceable  
-- Grouping related signals by connector and function  
-- Maintaining clean reference paths for routed signals  
-- Supporting future debugging through clear schematic and layout organization  
-- Designing the board to fit within the larger IMPAX electronics stack  
+- **Communication**  
+  Interface circuitry for RS-422 and SCI communication signals.
 
-This approach makes the board easier to review, debug, and integrate with the rest of the payload system.
+- **MCU**  
+  Central digital control section handling I/O, event bus, register configuration, calibration control, housekeeping, voltage enable, and monitoring signals.
+
+- **Signal Conversion**  
+  Converts or routes digital-board signals into carrier-board signal domains, including event bus, I/O bus, and register configuration paths.
+
+- **Calibration Signal**  
+  Routes calibration control between digital and carrier-board domains.
+
+- **Voltage Conversion**  
+  Includes enable control, DC-DC temperature housekeeping, high-voltage monitoring, and power-enable related signals.
+
+- **Housekeeping**  
+  Supports analog housekeeping signals used for system health monitoring.
+
+- **Carrier Board Connector**  
+  Main interface to the downstream carrier board, including event signals, I/O bus, register configuration, calibration, housekeeping, and heater-control connections.
+
+![Schematic Snapshot](images/schematic.png)
 
 ---
 
-### 4. Schematic Snapshot
+## 🔌 Interface and Signal Organization
 
-Representative schematic page showing:
+The Digital Board is organized around clear signal grouping between the cable connector, MCU, signal-conversion blocks, and carrier-board connector.
 
-- Digital interface organization  
-- Connector pin assignments  
-- Power and ground connections  
-- Signal grouping and naming strategy  
-- Board-level electrical structure  
+Representative signal groups include:
 
-![Schematic Snapshot](images/schematic.png)
+- **RS-422 communication signals**  
+- **SCI communication signals**  
+- **JTAG programming/debug interface**  
+- **MCU I/O signals**  
+- **Digital and analog event buses**  
+- **Digital and analog I/O buses**  
+- **Register configuration signals**  
+- **Calibration signals**  
+- **Analog housekeeping signals**  
+- **Carrier-board housekeeping signals**  
+- **Voltage enable and power-enable signals**  
+- **High-voltage monitoring signals**  
+- **Heater-control signals**
+
+This structure makes the schematic easier to review and helps keep the PCB layout organized around real system-level interfaces.
+
+---
+
+## ⚡ Power, Grounding, and Signal Integrity Focus
+
+Important design considerations included:
+
+- Using dedicated ground planes to provide strong signal return paths  
+- Keeping routed digital signals referenced to nearby ground layers  
+- Using internal layers to reduce routing congestion on the outer layers  
+- Maintaining organized connector fanout regions  
+- Separating functional areas to improve readability and debugging  
+- Supporting controlled-impedance routing where required  
+- Using via stitching and ground referencing to improve board-level robustness  
+
+The layout reflects a system-level approach where routing, grounding, connector placement, and functional partitioning are treated together.
 
 ---
 
@@ -126,7 +183,6 @@ IMPAX_Digital_Board/
    ├─ layout_3d_bottom.png
    ├─ layout_top.png
    └─ schematic.png
-```
 
 ---
 
