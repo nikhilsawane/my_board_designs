@@ -183,6 +183,7 @@ IMPAX_Digital_Board/
    ├─ layout_3d_bottom.png
    ├─ layout_top.png
    └─ schematic.png
+```
 
 ---
 
